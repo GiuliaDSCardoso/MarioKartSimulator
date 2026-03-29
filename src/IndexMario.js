@@ -61,15 +61,15 @@ async function getRandomBlock(){
 
     switch (true){
         case random < 0.33:
-            result = "RETA";
+            result = "Straight";
             break;
         
         case random > 0.33 && random <0.66:
-            result = "CURVA";
+            result = "Curve";
             break;
         
         default:
-            result = "CONFRONTO";
+            result = "Combat";
             
     }
 
@@ -78,7 +78,7 @@ async function getRandomBlock(){
 
 async function logRollResult(characterName,block, diceResult, attribute){
 
-    console.log(`${characterName} rolou um dado de ${block} ${diceResult} + ${attribute} = ${diceResult + attribute}`);
+    console.log(`${characterName} roll a dice of ${block} ${diceResult} + ${attribute} = ${diceResult + attribute}`);
 }
 
 
@@ -87,10 +87,10 @@ async function logRollResult(characterName,block, diceResult, attribute){
 async function playRaceEngine(character1, character2){
     // valor inicial, valor limite, o q faz
     for (let round = 1; round <= 5; round++) {
-        console.log(`\n🏁 Rodada ${round} começando...\n`);
+        console.log(`\n🏁 Round ${round} starting...\n`);
         // sort out round
         let block = await getRandomBlock();
-        console.log(`Bloco: ${block}`);
+        console.log(`Block: ${block}`);
         // roll the dice
         let diceResult1 = await rollDice();
         let diceResult2 = await rollDice();
@@ -100,7 +100,7 @@ async function playRaceEngine(character1, character2){
         let totalTestSkill1 = 0;
         let totalTestSkill2 = 0;
 
-        if( block === "RETA"){
+        if( block === "Straight"){
             totalTestSkill1 = character1.speed + diceResult1;
             totalTestSkill2 = character2.speed + diceResult2;
 
@@ -110,7 +110,7 @@ async function playRaceEngine(character1, character2){
            
         }
 
-        if( block === "CURVA"){
+        if( block === "Curve"){
             totalTestSkill1 = character1.maneuverability + diceResult1;
             totalTestSkill2 = character2.maneuverability + diceResult2;
 
@@ -119,7 +119,7 @@ async function playRaceEngine(character1, character2){
 
         }
 
-        if( block === "CONFRONTO"){
+        if( block === "Combat"){
             let powerResult1= character1.power + diceResult1;
             let powerResult2= character2.power + diceResult2;
 
@@ -138,29 +138,29 @@ async function playRaceEngine(character1, character2){
             ); */
 
             if(powerResult1 > powerResult2 ){
-                console.log(`\n🏆🏁${character1.name} marcou um ponto!`);
+                console.log(`\n🏆🏁${character1.name} scores a point!`);
                 character1.points += 1;
                 if (character2.points > 0){
                     character2.points -= 1;
                 }
-                console.log(`\n💥 ${character2.name} perdeu um ponto!`);
-                console.log(`Pontos do(a) ${character2.name} = ${character2.points}!`)
-                console.log(`Pontos do(a) ${character1.name} = ${character1.points}!`)
+                console.log(`\n💥 ${character2.name} lost a point!`);
+                console.log(`Points of ${character2.name} = ${character2.points}!`)
+                console.log(`Points of ${character1.name} = ${character1.points}!`)
             }
             else if(powerResult2 > powerResult1){
-                console.log(`\n🏆🏁${character2.name} marcou um ponto!`);
+                console.log(`\n🏆🏁${character2.name} scores a point!`);
                 character2.points ++;
                 if (character1.points > 0){
                     character1.points -= 1;
                 }
-                console.log(`\n💥 ${character1.name} perdeu um ponto!`);
-                console.log(`Pontos do(a) ${character2.name} = ${character2.points}!`)
-                console.log(`Pontos do(a) ${character1.name} = ${character1.points}!`)
+                console.log(`\n💥 ${character1.name} lost a point!`);
+                console.log(`Points of ${character2.name} = ${character2.points}!`)
+                console.log(`Points of ${character1.name} = ${character1.points}!`)
             }
             else{
-                console.log(`\n🤝 Empate na rodada!`);    
-                console.log(`Pontos do(a) ${character2.name} = ${character2.points}!`)
-                console.log(`Pontos do(a) ${character1.name} = ${character1.points}!`)
+                console.log(`\n🤝 Tie in the round!`);    
+                console.log(`Points of ${character2.name} = ${character2.points}!`)
+                console.log(`Points of ${character1.name} = ${character1.points}!`)
             }
            
         }
@@ -174,21 +174,21 @@ async function playRaceEngine(character1, character2){
         ) */
 
         if(totalTestSkill1 > totalTestSkill2){
-            console.log(`\n🏆🏁${character1.name} marcou um ponto!`);
+            console.log(`\n🏆🏁${character1.name} scores a point!`);
             character1.points += 1;
-            console.log(`Pontos do(a) ${character2.name} = ${character2.points}!`)
-            console.log(`Pontos do(a) ${character1.name} = ${character1.points}!`)
+            console.log(`Points of ${character2.name} = ${character2.points}!`)
+            console.log(`Points of ${character1.name} = ${character1.points}!`)
         }
         else if(totalTestSkill2 > totalTestSkill1){
-            console.log(`\n🏆🏁${character2.name} marcou um ponto!`);
+            console.log(`\n🏆🏁${character2.name} scores a point!`);
             character2.points ++;
-            console.log(`Pontos do(a) ${character2.name} = ${character2.points}!`)
-            console.log(`Pontos do(a) ${character1.name} = ${character1.points}!`)
+            console.log(`Points of ${character2.name} = ${character2.points}!`)
+            console.log(`Points of ${character1.name} = ${character1.points}!`)
         }
         else{
-            console.log(`\n🤝 Empate na rodada!`);
-            console.log(`Pontos do(a) ${character2.name} = ${character2.points}!`)
-            console.log(`Pontos do(a) ${character1.name} = ${character1.points}!`)    
+            console.log(`\n🤝 Tie in the round!`);
+            console.log(`Points of ${character2.name} = ${character2.points}!`)
+            console.log(`Points of ${character1.name} = ${character1.points}!`)    
         }
 
         console.log("----------------------------------------")
@@ -203,22 +203,22 @@ async function playRaceEngine(character1, character2){
 // Função para declarar o vencedor
 
 async function declareWinner(character1, character2){
-    console.log(`\n🏁🚨 Corrida entre ${character1.name} e ${character2.name} terminou! \n`);
+    console.log(`\n🏁🚨 The race between ${character1.name} and ${character2.name} has finished! \n`);
     if(character1.points > character2.points){
-        console.log(`🏆 O vencedor é ${character1.name} com ${character1.points} pontos!`);
+        console.log(`🏆 The winner is ${character1.name} with ${character1.points} points!`);
     }
     else if(character2.points > character1.points){
-        console.log(`🏆 O vencedor é ${character2.name} com ${character2.points} pontos!`);
+        console.log(`🏆 The winner is ${character2.name} with ${character2.points} points!`);
     }
     else{
-        console.log(`🤝 A corrida terminou empatada com ${character1.points} pontos para cada!`);
+        console.log(`🤝 The race ended in a tie with ${character1.points} points for each!`);
     }
 }
 
 // Auto-executing function (function(){})();
 
 (async function main(){
-    console.log(`🏁🚨 Corrida entre ${player3.name} e ${player5.name} começando... \n`);
+    console.log(`🏁🚨 The race between ${player3.name} and ${player5.name} is starting... \n`);
 
     await playRaceEngine(player3, player5);
     await declareWinner(player3, player5);

@@ -162,7 +162,8 @@ async function playRaceEngine(character1, character2){
                 console.log(`Points of ${character2.name} = ${character2.points}!`)
                 console.log(`Points of ${character1.name} = ${character1.points}!`)
             }
-           
+           console.log("----------------------------------------")
+           continue;
         }
 
        /*  character2.points -= totalTestSkill1 > totalTestSkill2 && character2.points > 0 ? 1 : 0;
